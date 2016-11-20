@@ -84,6 +84,30 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ArrayAdapter<String> adapter =
+                null;
+        if (currentExpenseManager != null) {
+            adapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item,
+                    currentExpenseManager.getAccountNumbersList());
+        }
+        accountSelector.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            onResume();
+        }
+    }
+
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit_amount:
