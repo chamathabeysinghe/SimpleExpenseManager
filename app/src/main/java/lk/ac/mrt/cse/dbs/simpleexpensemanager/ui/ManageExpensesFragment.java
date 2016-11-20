@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.R;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.ExpenseManager;
@@ -112,6 +113,10 @@ public class ManageExpensesFragment extends Fragment implements View.OnClickList
         switch (view.getId()) {
             case R.id.submit_amount:
                 String selectedAccount = (String) accountSelector.getSelectedItem();
+                if(selectedAccount==null){
+                    Toast.makeText(this.getContext(),"Account needed",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String amountStr = amount.getText().toString();
                 RadioButton checkedType = (RadioButton) getActivity().findViewById(expenseTypeGroup
                         .getCheckedRadioButtonId());
